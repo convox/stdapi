@@ -18,7 +18,7 @@ func New(ns, hostname string) *Server {
 
 	server.Router = &Router{
 		Parent: nil,
-		Router: mux.NewRouter(),
+		Router: mux.NewRouter().SkipClean(true),
 		Server: server,
 	}
 
