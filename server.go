@@ -11,7 +11,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type RecoverFunc func(error)
+type RecoverFunc func(error, *Context)
 
 type Server struct {
 	Check    HandlerFunc

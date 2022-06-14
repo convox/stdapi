@@ -119,11 +119,11 @@ func (rt *Router) handle(fn HandlerFunc, c *Context) error {
 		}
 		switch t := recover().(type) {
 		case error:
-			rt.Server.Recover(t)
+			rt.Server.Recover(t, c)
 		case string:
-			rt.Server.Recover(fmt.Errorf(t))
+			rt.Server.Recover(fmt.Errorf(t), c)
 		case fmt.Stringer:
-			rt.Server.Recover(fmt.Errorf(t.String()))
+			rt.Server.Recover(fmt.Errorf(t.String()), c)
 		case nil:
 			return
 		default:
