@@ -117,15 +117,18 @@ func (rt *Router) handle(fn HandlerFunc, c *Context) error {
 		if rt.Server.Recover == nil {
 			return
 		}
-		switch t := recover().(type) {
+		err := recover()
+		if err == http.ErrAbortHandler || err == nil {
+			return
+		}
+
+		switch t := err.(type) {
 		case error:
 			rt.Server.Recover(t, c)
 		case string:
 			rt.Server.Recover(fmt.Errorf(t), c)
 		case fmt.Stringer:
 			rt.Server.Recover(fmt.Errorf(t.String()), c)
-		case nil:
-			return
 		default:
 			panic(t)
 		}
