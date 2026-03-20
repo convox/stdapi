@@ -1,6 +1,6 @@
 module github.com/convox/stdapi
 
-go 1.12
+go 1.13
 
 require (
 	github.com/convox/logger v0.0.0-20180522214415-e39179955b52
